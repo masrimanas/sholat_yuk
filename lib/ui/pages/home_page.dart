@@ -18,7 +18,7 @@ class HomePage extends StatelessWidget {
             width: screenSize.width * 0.9,
             child: Column(
               children: [
-                Container(
+                SizedBox(
                     width: 250,
                     height: 250,
                     child: Image.asset(

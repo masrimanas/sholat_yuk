@@ -19,6 +19,7 @@ class SholatDetailPage extends StatefulWidget {
 class _SholatDetailPageState extends State<SholatDetailPage> {
   @override
   Widget build(BuildContext context) {
+    final screenSize = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(title: Text('Sholat ${widget.sholat.name}')),
       body: Column(
@@ -28,8 +29,8 @@ class _SholatDetailPageState extends State<SholatDetailPage> {
           ),
           Center(
             child: Container(
-              height: 250,
-              width: 250,
+              height: screenSize.height * 0.34,
+              width: screenSize.width * 0.5,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
                 color: Colors.grey[300],
@@ -38,12 +39,12 @@ class _SholatDetailPageState extends State<SholatDetailPage> {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(top: 18.0),
+            padding: const EdgeInsets.only(top: 8),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Container(
-                  padding: const EdgeInsets.all(18),
+                  padding: const EdgeInsets.all(8),
                   decoration: BoxDecoration(
                     color: Colors.grey[300],
                     borderRadius: BorderRadius.circular(6),
@@ -71,7 +72,7 @@ class _SholatDetailPageState extends State<SholatDetailPage> {
                   width: 20,
                 ),
                 Container(
-                  padding: const EdgeInsets.all(18),
+                  padding: const EdgeInsets.all(8),
                   decoration: BoxDecoration(
                     color: Colors.grey[300],
                     borderRadius: BorderRadius.circular(6),
@@ -107,10 +108,10 @@ class _SholatDetailPageState extends State<SholatDetailPage> {
               margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
               padding: const EdgeInsets.all(8.0),
               child: Column(
+                mainAxisSize: MainAxisSize.min,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
+                  Expanded(
                     child: RichText(
                       textAlign: TextAlign.center,
                       text: TextSpan(
@@ -123,31 +124,44 @@ class _SholatDetailPageState extends State<SholatDetailPage> {
                             TextSpan(
                               text: widget.sholat.niat,
                               style: const TextStyle(
-                                fontWeight: FontWeight.normal,
-                                fontStyle: FontStyle.italic,
-                                color: Colors.black54,
-                              ),
+                                  fontWeight: FontWeight.normal,
+                                  fontStyle: FontStyle.italic,
+                                  color: Colors.black54,
+                                  overflow: TextOverflow.fade),
                             ),
                           ]),
                     ),
                   ),
-                  Column(
-                    children: [
-                      Text(
-                        'Jika sudah melaksanakan sholat ${widget.sholat.name}, silahkan tekan tombol di bawah ini',
-                        textAlign: TextAlign.center,
-                        style: const TextStyle(
-                          fontSize: 12,
-                          fontStyle: FontStyle.italic,
-                        ),
+                  Expanded(
+                    child: Container(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          Flexible(
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text(
+                                'Jika sudah melaksanakan sholat ${widget.sholat.name}, silahkan tekan tombol di bawah ini',
+                                overflow: TextOverflow.fade,
+                                textAlign: TextAlign.center,
+                                style: const TextStyle(
+                                  fontSize: 12,
+                                  fontStyle: FontStyle.italic,
+                                ),
+                              ),
+                            ),
+                          ),
+                          Flexible(
+                            child: ElevatedButton(
+                              onPressed: () {
+                                Navigator.pop(context, true);
+                              },
+                              child: const Text('Tandai'),
+                            ),
+                          ),
+                        ],
                       ),
-                      ElevatedButton(
-                        onPressed: () {
-                          Navigator.pop(context, true);
-                        },
-                        child: const Text('Tandai'),
-                      ),
-                    ],
+                    ),
                   ),
                 ],
               ),
